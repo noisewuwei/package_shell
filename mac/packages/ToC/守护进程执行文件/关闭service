@@ -1,0 +1,5 @@
+
+sudo launchctl unload  /Library/LaunchDaemons/com.youqu.todesk.service.plist
+sudo rm -rf /Applications/ToDesk.app/Contents/p
+
+echo "ok";

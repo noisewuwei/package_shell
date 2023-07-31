@@ -1,0 +1,4 @@
+
+sudo launchctl load -w /Library/LaunchDaemons/com.todesk.business.host.service.plist
+
+echo "ok";

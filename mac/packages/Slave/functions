@@ -1,0 +1,69 @@
+#!/bin/sh
+set -x
+
+servicePlist="/Library/LaunchDaemons/com.todesk.business.host.service.plist"
+autorunPlist="/Library/LaunchAgents/com.todesk.business.host.startup.plist"
+appName="ToDesk_Client_Slave.app"
+
+stopAutoRun() {
+	for uid in $(ps -axo uid,args | grep -i "[l]oginwindow.app" | awk '{print $1}'); do
+		if [ "${uid}" -gt 0 ]; then
+			launchctl bootout "gui/${uid}" "${autorunPlist}"
+		fi
+	done
+}
+
+startAutoRun() {
+	for uid in $(ps -axo uid,args | grep -i "[l]oginwindow.app" | awk '{print $1}'); do
+		if [ "${uid}" -gt 0 ]; then
+			launchctl bootstrap "gui/${uid}" "${autorunPlist}"
+		fi
+	done
+}
+
+stopService() {	
+	launchctl bootout system ${servicePlist}
+	# sudo launchctl unload  ${servicePlist}
+}
+
+startService() {
+	launchctl bootstrap system ${servicePlist}
+	# sudo launchctl load -w ${servicePlist}
+}
+
+stopEverything() {
+	stopAutoRun
+	stopService
+}
+
+startEverything() {
+    startService
+    startAutoRun
+}
+
+createDirectory() {
+	loggedusers=`who | awk '/console/ { print $1 }'`
+	appPath="/Applications/${appName}"
+	appContents="${appPath}/Contents"
+
+	sudo chmod 775 $appPath
+	sudo chmod 775 $appContents
+
+	sudo mkdir "${appPath}/Contents/Logs"
+	sudo chmod 777 "${appPath}/Contents/Logs"
+
+	sudo mkdir "${appPath}/Contents/ImageResources"
+	sudo chmod 777 "${appPath}/Contents/ImageResources"
+}
+
+removeOld() {
+	oldAppPath="/Applications/ToDesk_Host.app"
+	if [ -d "$oldAppPath" ]; then
+		sudo rm -rf "$oldAppPath"
+	fi
+}
+
+
+
+
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>ToDesk</title>
+        <item>
+            <title></title>
+            <pubDate>Wed, 06 Apr 2022 12:19:52 +0800</pubDate>
+            <sparkle:version>4.2.3</sparkle:version>
+            <sparkle:shortVersionString>4.2.3.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>10.11</sparkle:minimumSystemVersion>
+            <description xml:lang="zh-Hans">
+              <![CDATA[
+                <ul>
+                    <li>性能优化</li>
+                    <li>修复了一些已知问题</li>
+                </ul>
+              ]]>
+            </description>
+            <enclosure url="https://dl.todesk.com/test/ToDesk_4.2.3.pkg" length="10000" installationType="package" type="application/octet-stream" sparkle:edSignature="AAAAAA"/>
+        </item>
+    </channel>
+</rss>

@@ -1,0 +1,4 @@
+
+launchctl unload  /Library/LaunchAgents/com.youqu.todesk.desktop.plist
+
+echo "ok";

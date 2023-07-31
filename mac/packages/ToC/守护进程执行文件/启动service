@@ -1,0 +1,4 @@
+
+sudo launchctl load -w /Library/LaunchDaemons/com.youqu.todesk.service.plist
+
+echo "ok";

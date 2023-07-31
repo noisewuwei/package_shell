@@ -1,0 +1,85 @@
+#!/bin/sh
+set -x
+
+desktopPlist="/Library/LaunchAgents/com.youqu.todesk.desktop.plist"
+servicePlist="/Library/LaunchDaemons/com.youqu.todesk.service.plist"
+autorunPlist="/Library/LaunchAgents/com.youqu.todesk.startup.plist"
+appName="ToDesk.app"
+
+stopAgents() {
+	for uid in $(ps -axo uid,args | grep -i "[l]oginwindow.app" | awk '{print $1}'); do
+		if [ "${uid}" -gt 0 ]; then
+			launchctl bootout "gui/${uid}" "${desktopPlist}"
+		else
+			launchctl bootout loginwindow "${desktopPlist}"
+		fi
+	done
+}
+
+startAgents() {
+	for uid in $(ps -axo uid,args | grep -i "[l]oginwindow.app" | awk '{print $1}'); do
+		if [ "${uid}" -gt 0 ]; then
+			launchctl bootstrap "gui/${uid}" "${desktopPlist}"
+		else
+			launchctl bootstrap loginwindow "${desktopPlist}"
+		fi
+	done
+}
+
+stopAutoRun() {
+	for uid in $(ps -axo uid,args | grep -i "[l]oginwindow.app" | awk '{print $1}'); do
+		if [ "${uid}" -gt 0 ]; then
+			launchctl bootout "gui/${uid}" "${autorunPlist}"
+		fi
+	done
+}
+
+startAutoRun() {
+	for uid in $(ps -axo uid,args | grep -i "[l]oginwindow.app" | awk '{print $1}'); do
+		if [ "${uid}" -gt 0 ]; then
+			launchctl bootstrap "gui/${uid}" "${autorunPlist}"
+		fi
+	done
+}
+
+stopService() {	
+	launchctl bootout system ${servicePlist}
+	# sudo launchctl unload  ${servicePlist}
+}
+
+startService() {
+	launchctl bootstrap system ${servicePlist}
+	# sudo launchctl load -w ${servicePlist}
+}
+
+stopEverything() {
+	stopAutoRun
+	stopService
+}
+
+startEverything() {
+    startService
+    startAutoRun
+    sudo /bin/launchctl kickstart -kp system/com.apple.audio.coreaudiod
+}
+
+createDirectory() {
+	loggedusers=`who | awk '/console/ { print $1 }'`
+	appPath="/Applications/${appName}"
+	appContents="${appPath}/Contents"
+
+	sudo chmod 775 $appPath
+	sudo chmod 775 $appContents
+
+	sudo mkdir "${appPath}/Contents/Logs"
+	sudo chmod 777 "${appPath}/Contents/Logs"
+
+	sudo mkdir "${appPath}/Contents/ImageResources"
+	sudo chmod 777 "${appPath}/Contents/ImageResources"
+}
+
+
+
+
+
+

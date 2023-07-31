@@ -1,0 +1,14 @@
+{
+  "title": "SlaveSDKDemoMac",
+  "icon-size": 128,
+  "background": "background.png",
+  "icon": "icon.icns",
+  "window":{"size":{"width":600,"height":600}},
+  "contents": [
+    { "x": 140, "y": 200, "type": "file", "path": "SlaveSDKDemoMac.app" },
+    { "x": 370, "y": 200, "type": "link", "path": "/Applications" },
+    { "x": 140, "y": 400, "type": "file", "path": "ToDeskAudioDrive.pkg" },
+    { "x": 370, "y": 400, "type": "file", "path": "ToDeskPrinter.pkg" }
+  ]
+}
+

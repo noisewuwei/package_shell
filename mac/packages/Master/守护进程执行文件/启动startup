@@ -1,0 +1,5 @@
+
+launchctl load -w /Library/LaunchAgents/com.todesk.business.client.startup.plist
+
+
+echo "ok";

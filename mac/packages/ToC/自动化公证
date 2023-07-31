@@ -1,0 +1,39 @@
+# 特别注意：
+# 公证所使用的App包不能事先通过Xcode进行公证，否则会无法公证
+# App需要先通过Developer ID证书进行签名
+
+# 使用Developer ID Installer对pkg包进行签名并生成一个新的pkg包
+productsign --sign  "Developer ID Installer: Hainan Youqu Technology Co., Ltd. (KM56KD59W4)" ToDesk.pkg  ToDesk1.pkg;
+
+# 进行公证
+xcrun altool --notarize-app  --primary-bundle-id "com.youqu.todesk.mac"  --username "appstore@54nb.com"  --password "ptli-tlxh-fauj-ftrb"  --asc-provider "KM56KD59W4" --file ToDesk1.pkg &> tmp;
+
+# 获取UUID
+uuid=`cat tmp | grep -Eo '\w{8}-(\w{4}-){3}\w{12}$'`
+# 循环判断公证结果
+while true; do
+    echo "checking for notarization...uuid = " $uuid
+    xcrun altool --notarization-info "$uuid" --username "appstore@54nb.com" --password "ptli-tlxh-fauj-ftrb" &> tmp
+    r=`cat tmp`
+    t=`echo "$r" | grep "success"`
+    f=`echo "$r" | grep "invalid"`
+    if [[ "$t" != "" ]]; then
+        echo "notarization done!"
+        xcrun stapler staple "ToDesk1.pkg"
+        echo "stapler done!"
+        break
+    fi
+    if [[ "$f" != "" ]]; then
+        echo "$r"
+        return 1
+    fi
+    echo "not finish yet, sleep 20s then check again..."
+    sleep 10
+done
+
+#改变包名
+rm -rf tmp;
+rm -rf ToDesk.pkg;
+mv ToDesk1.pkg ToDesk.pkg;
+
+# xcrun altool --notarization-info "8480a702-c15a-4178-ac04-ec7c86d632d3" --username "appstore@54nb.com" --password "ptli-tlxh-fauj-ftrb"

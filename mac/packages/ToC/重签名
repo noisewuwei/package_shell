@@ -1,0 +1,12 @@
+# 重签名
+cd /Users/jiangtianbao/Desktop/ToDesk安装包/pkg
+#验证是否进行公证
+xcrun stapler validate ToDesk.app 
+
+#pkg签名
+codesign -f -s "Developer ID Application: Hainan Youqu Technology Co., Ltd. (KM56KD59W4)" ToDesk.pkg
+
+#codesign -f -s "Apple Distribution: Hainan Youqu Technology Co., Ltd. (KM56KD59W4)" ToDesk.pkg
+
+#pkg签名
+#productsign --sign "Developer ID Installer: Hainan Youqu Technology Co., Ltd. (KM56KD59W4)" ToDesk.pkg ToDesk1.pkg

@@ -1,0 +1,5 @@
+
+launchctl load -w /Library/LaunchAgents/com.youqu.todesk.desktop.plist
+
+
+echo "ok";

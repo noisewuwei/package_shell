@@ -1,0 +1,4 @@
+
+launchctl load -w /Library/LaunchAgents/com.todesk.business.host.desktop.plist
+
+echo "ok";

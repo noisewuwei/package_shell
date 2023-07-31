@@ -1,0 +1,4 @@
+
+sudo launchctl load -w /Library/LaunchDaemons/com.todesk.business.client.service.plist
+
+echo "ok";

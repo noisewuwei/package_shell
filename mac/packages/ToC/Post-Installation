@@ -1,0 +1,12 @@
+#!/bin/sh
+. ./functions
+
+appName="ToDesk.app"
+
+createDirectory
+startEverything
+
+sleep 3
+open -a "/Applications/${appName}"
+echo "ok";
+

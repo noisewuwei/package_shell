@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>destination</key>
+	<string>export</string>
+	<key>method</key>
+	<string>developer-id</string>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>com.zuler.SlaveSDKDemo</key>
+		<string>ToDesk_SDK_Slave_macOS</string>
+		<key>com.zuler.MasterSDKDemo</key>
+		<string>ToDesk_SDK_Master_macOS</string>
+		<key>com.todesk.business.sos</key>
+		<string>ToDesk_Client_SOS_Profile</string>
+		<key>com.todesk.business.host</key>
+		<string>ToDesk_Client_Slave_Profile</string>
+		<key>com.todesk.business.client</key>
+		<string>ToDesk_Client_Master_Profile</string>
+		<key>com.youqu.todesk.mac</key>
+		<string>ToDesk_Client_Profile</string>
+		<key>com.youqu.todesk.mac.LaunchHelper</key>
+		<string>ToDesk MacOS DeveloperID LaunchHelper</string>
+	</dict>
+	<key>signingCertificate</key>
+	<string>Developer ID Application</string>
+	<key>signingStyle</key>
+	<string>manual</string>
+	<key>teamID</key>
+	<string>KM56KD59W4</string>
+</dict>
+</plist>

@@ -1,0 +1,13 @@
+#!/bin/sh
+. ./functions
+
+appName="ToDesk_Client_Master.app"
+
+removeOld
+createDirectory
+startEverything
+
+sleep 3
+open -a "/Applications/${appName}"
+echo "ok";
+

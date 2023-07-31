@@ -1,0 +1,32 @@
+# 特别注意：
+# 公证所使用的App包不能事先通过Xcode进行公证，否则会无法公证
+# App需要先通过Developer ID证书进行签名
+
+# 本机的所有证书
+security find-identity -v
+
+# 使用Developer ID Installer对pkg包进行签名并生成一个新的pkg包
+productsign --sign  "Developer ID Installer: Hainan Youqu Technology Co., Ltd. (KM56KD59W4)" ToDesk.pkg  ToDesk1.pkg
+
+# 进行公证
+xcrun altool --notarize-app  --primary-bundle-id "com.youqu.todesk.mac"  --username "appstore@54nb.com"  --password "dijt-zrjz-wxza-nynu"  --asc-provider "KM56KD59W4" --file ToDesk1.pkg
+
+# 查看公证结果（一长串编码为公证后返回的编码）
+xcrun altool --notarization-info 06e85168-a18f-4055-973b-83d8e39ed93b -u "appstore@54nb.com"   --password "dijt-zrjz-wxza-nynu"
+
+# 加入票据
+xcrun stapler staple  ToDesk1.pkg
+#outut:The staple and validate action worked!
+
+# 验证票据
+xcrun stapler validate ToDesk1.pkg
+#output:The validate action worked!
+
+# 获取asc-provider
+xcrun altool --list-providers -u "appstore@54nb.com" -p "dijt-zrjz-wxza-nynu"
+
+
+
+
+
+
